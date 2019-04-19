@@ -35,7 +35,10 @@ class ResponseContainer extends Component {
                 </a>
                 <div className="descriptionContainer">
                     <h3>{this.props.name}</h3>
-                    <p>{this.props.description.substring(0, 150) + '...'}</p>
+                    {/* {cut down the size of the description to 100 characters}  */}
+                    <p>{this.props.description.substring(0, 100) + '...'}</p>
+                    {/* {Split up date props to show date and time seperately} */}
+                    <p>Date: {this.props.date.substring(0, 10)} Time: {this.props.date.substring(11)}</p>
                 </div>
                 <button className="saveEvent">Save this Event!</button>
             </form>

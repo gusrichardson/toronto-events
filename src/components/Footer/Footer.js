@@ -5,8 +5,8 @@ class Footer extends Component {
     render() {
         return (
             <footer>
-                <h3>Copyright 2019 Gus Richardson</h3>
-                <p>Skyline photo credit: Luis Enrique Carvajal   |   Pattern background created at SVGBackgrounds.com</p>
+                <h3>Copyright © 2019 Gus Richardson</h3>
+                <p>Skyline photo credit: Luis Enrique Carvajal   <span>|   Pattern background created at SVGBackgrounds.com</span></p>
             </footer>
         )
     }

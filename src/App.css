@@ -39,6 +39,16 @@ p, label, input {
   font-family: 'Lato', sans-serif;
 }
 
+input, label, select {
+  text-transform: capitalize;
+}
+
+button {
+    border: 2px solid #165788;
+    border-radius: 5px;
+    padding: 5px 20px;
+}
+
 .wrapper {
   width: 80%;
   margin: 0 auto;
@@ -50,7 +60,19 @@ p, label, input {
   padding: 10px;
   margin: 20px 0;
   border-radius: 5px;
-  border: 5px solid #165788;
+  border: 10px solid #165788;
+  width: 400px;
+  height: 240px;
+}
+
+.savedItemText {
+  height: 160px;
+}
+
+.savedEventsFlex {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-around;
 }
 
 .fa {

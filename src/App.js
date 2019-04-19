@@ -51,6 +51,12 @@ class App extends Component {
     }
   }
 
+  //target a saved event item by its key and remove from firebase
+  removeItem = (itemKey) => {
+    const dbRef = firebase.database().ref(itemKey);
+    dbRef.remove();
+  }
+
   //trigger API call when user submits form
   handleSubmit = (event) => {
     event.preventDefault();
@@ -119,7 +125,7 @@ class App extends Component {
       //take each item from firebase and push their values into state
       for (let key in eventItem) {
         //shorten the length of the event descriptions
-        let shortDescription = eventItem[key].description.substring(0, 20) + '...';
+        let shortDescription = eventItem[key].description.substring(0, 180) + '...';
         savedEvents.push({
           key: key,
           name: eventItem[key].name,
@@ -170,6 +176,7 @@ class App extends Component {
                         name={event.name}
                         image={event.image_url}
                         description={event.description}
+                        date={event.time_start}
                         website={event.event_site_url}
                       />
                     )
@@ -187,8 +194,11 @@ class App extends Component {
                 this.state.savedEvents.map((eventItem) => {
                   return (
                     <div className="savedEventItem">
-                      <h3>{eventItem.name}</h3>
-                      <p>{eventItem.description}</p>
+                      <div className="savedItemText">
+                        <h3>{eventItem.name}</h3>
+                        <p>{eventItem.description}</p>
+                      </div>
+                      <button onClick={() => this.removeItem(eventItem.key)}>Remove Item</button>
                     </div>
                   )
                 })

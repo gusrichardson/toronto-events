@@ -12,7 +12,7 @@
 
 .responseItem {
     width: 400px;
-    height: 400px;
+    height: 440px;
     border: 10px solid #165788;
     box-shadow: 1px 1px 10px grey;
     border-radius: 10px;
@@ -33,8 +33,9 @@
 }
 
 .descriptionContainer {
-    height: 150px;
+    height: 160px;
     overflow: hidden;
-    border: 1px solid black;
     padding: 10px;
+    margin-bottom: 10px;
+    /* border: 1px solid black; */
 }

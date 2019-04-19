@@ -1,8 +1,27 @@
 footer {
-    height: 100px;
+    height: 90px;
     padding-top: 30px;
+    background: #165788;
+    /* border-top: 5px solid #165788; */
 }
 
 footer p {
     font-size: .9rem;
+    /* color: #F2F2F2; */
+}
+
+footer h3 {
+    color: #F2F2F2;
+}
+
+@media (max-width: 700px){
+    footer {
+        padding-top: 25px;
+    }
+    footer h3 {
+        line-height: 0.8;
+    }
+    span {
+        display: block;
+    }
 }
