@@ -25,6 +25,7 @@ class ResponseContainer extends Component {
     }
 
     render() {
+        // { let shortDescription = this.props.description.substring(0, 200) + '...' }
         return (
             <form className="responseItem" onSubmit={this.handleSaveToFB}>
                 <a href={this.props.website}>
@@ -34,7 +35,7 @@ class ResponseContainer extends Component {
                 </a>
                 <div className="descriptionContainer">
                     <h3>{this.props.name}</h3>
-                    <p>{this.props.description}</p>
+                    <p>{this.props.description.substring(0, 150) + '...'}</p>
                 </div>
                 <button className="saveEvent">Save this Event!</button>
             </form>

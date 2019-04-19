@@ -10,7 +10,7 @@ class Header extends Component {
                     <h2>find out what's going on in the city!</h2>
                 </div>
                 <form className="eventForm" onSubmit={this.props.handleSubmit}>
-                    <h3>Pick an Event Category and Max Price</h3>
+                    <h3>Choose your event preferences</h3>
                     <label htmlFor="category">Category</label>
                     <select placeholder="Type event category" id="category" onChange={this.props.handleCategoryChoice}>
                         <option value="music">Music</option>
@@ -27,8 +27,11 @@ class Header extends Component {
                         <option value="kids-family">Kids and Family</option>
                         <option value="other">Other</option>
                     </select>
-                    <label htmlFor="maxPrice">Choose a Maximum Price</label>
-                    <input type="number" placehold="Enter max price in dollars" id="maxPrice" onChange={this.props.handleMaxPrice} />
+                    <label htmlFor="onlyFree">Free or paid events</label>
+                    <select placeholder="Only show events that are free" id="onlyFree" onChange={this.props.handlePriceChoice}>
+                        <option value="false">Free and paid events</option>
+                        <option value="true">Only free events</option>
+                    </select>
                     <input type="submit" id="submitForm" value="Submit form" />
                 </form>
             </header>

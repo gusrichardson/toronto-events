@@ -1,5 +1,5 @@
 header {
-    min-height: calc(100vh - 100px);
+    min-height: calc(100vh - 110px);
     background: cornflowerblue;
     background: url(../../assets/toronto.jpg);
     background-position: 0% 50%;
@@ -17,7 +17,7 @@ header {
     color:#165788;
 }
 
-form {
+header form {
     width: 400px;
     height: 250px;
     padding: 20px;
@@ -35,7 +35,7 @@ form label {
     margin-top: 20px;
 }
 
-#category, #maxPrice {
+select {
     width: 300px;
 }
 

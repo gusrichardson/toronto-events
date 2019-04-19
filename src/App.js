@@ -2,6 +2,8 @@ import React, { Component } from 'react';
 import firebase from './firebase';
 import axios from 'axios';
 import './App.css';
+import 'font-awesome/css/font-awesome.min.css'
+import AnchorLink from 'react-anchor-link-smooth-scroll'
 import Header from './components/Header/Header';
 import ResponseContainer from './components/ResponseContainer/ResponseContainer';
 import Footer from './components/Footer/Footer';
@@ -21,7 +23,7 @@ class App extends Component {
     this.state = {
       category: "",
       start_date: 0,
-      maxCost: null,
+      onlyFree: false,
       events: [],
       savedEvents: [],
       isLoading: "",
@@ -36,23 +38,28 @@ class App extends Component {
     console.log(this.state);
   }
 
-  //take user's maximum price preference and update state
-  handleMaxPrice = (event) => {
-    this.setState({
-      maxCost: event.target.value
-    })
-    console.log(this.state.maxCost);
+  handlePriceChoice = (event) => {
+    let priceChoice = event.target.value;
+    if (priceChoice === "true") {
+      this.setState({
+        onlyFree: true
+      })
+    } else {
+      this.setState({
+        onlyFree: false
+      })
+    }
   }
 
   //trigger API call when user submits form
   handleSubmit = (event) => {
     event.preventDefault();
-    this.getTimeStamp();
     this.loadingResults();
     this.getEventsFromAPI();
+    console.log(this.state)
   }
 
-  //get a UNIX time stamp so that start date can be update to today's date
+  //get a UNIX time stamp so that start date can be updated to today's date
   getTimeStamp = () => {
     //this returns milliseconds
     const time = Date.now();
@@ -61,13 +68,6 @@ class App extends Component {
     this.setState({
       start_date: unixTime
     })
-  }
-
-  displayResults = () => {
-    const events = this.state.events;
-    for (let i = 0; i < events.length; i++) {
-      console.log(events[i].name, events[i].description, events[i].event_site_url)
-    }
   }
 
   // show that results are loading after user submits form
@@ -91,10 +91,11 @@ class App extends Component {
         limit: 10,
         start_date: this.state.start_date,
         categories: this.state.category,
-        cost: 10
+        is_free: this.state.onlyFree,
       }
     }).then((result) => {
-      const resultsArray = result.data.events;
+      //filter the response and only include events that are not canceled
+      const resultsArray = result.data.events.filter(event => event.is_canceled === false)
       if (resultsArray.length === 0) {
         alert('Sorry, not much going on. Why not try another category!')
       }
@@ -102,7 +103,6 @@ class App extends Component {
         events: resultsArray,
         isLoading: false
       })
-      this.displayResults();
     }).catch((error) => {
       alert('Sorry, something went wrong');
     })
@@ -110,16 +110,21 @@ class App extends Component {
 
   // When component mounts load saved Events from firebase and update state
   componentDidMount() {
+    //Get timestamp when component mounts
+    this.getTimeStamp();
     const dbRef = firebase.database().ref();
     dbRef.on('value', (event) => {
       const eventItem = event.val();
       const savedEvents = [];
       //take each item from firebase and push their values into state
       for (let key in eventItem) {
+        //shorten the length of the event descriptions
+        let shortDescription = eventItem[key].description.substring(0, 20) + '...';
         savedEvents.push({
           key: key,
           name: eventItem[key].name,
-          description: eventItem[key].description
+          description: shortDescription
+          // description: eventItem[key].description
         })
       }
       this.setState({
@@ -135,44 +140,60 @@ class App extends Component {
       <div className="App">
         <Header
           handleCategoryChoice={this.handleCategoryChoice}
-          handleMaxPrice={this.handleMaxPrice}
+          handlePriceChoice={this.handlePriceChoice}
           handleSubmit={this.handleSubmit}
         />
-        <main className="results">
+        <main className="results" id="responseContainer">
           {/* { if the isLoading state is set to false return the "here's what happening" notice. If isLoading is set to null do nothing} */}
-          {this.state.isLoading === false ? (
-            <h2 className="resultsTitle">Here's what's happening!</h2>
-          ) : (null)}
+          { //OPEN JAVASCRIPT
+            this.state.isLoading === false ? (
+              <div>
+                <h2 className="resultsTitle">Here's what's happening!</h2>
+                <AnchorLink href='#responseContainer'><i className="fa fa-arrow-circle-down"></i></AnchorLink>
+              </div>
+            ) : (null)
+            //CLOSE JAVASCRIPT
+          }
           <div className="responseFlex wrapper">
             {/* { if the isLoading state is set to True show the "loading your results" title} */}
-            {this.state.isLoading ? (
-              <h2 className="resultsTitle">Loading your results...</h2>
-            ) : (
-                // {if isLoading returns to False then the events have loaded. Map over the events and return their results in the ResponseContainer component}
-                this.state.events.map(event => {
-                  return (
-                    <ResponseContainer
-                      name={event.name}
-                      image={event.image_url}
-                      description={event.description}
-                      website={event.event_site_url}
-                    />
-                  )
-                })
-              )}
+            { //OPEN JAVASCRIPT
+              this.state.isLoading ? (
+                <div>
+                  <h2 className="resultsTitle">Loading your results...</h2>
+                  <i className="fa fa-spinner fa-spin resultsTitle"></i>
+                </div>
+              ) : (
+                  // {if isLoading returns to False then the events have loaded. Map over the events and return their results in the ResponseContainer component}
+                  this.state.events.map(event => {
+                    return (
+                      <ResponseContainer
+                        name={event.name}
+                        image={event.image_url}
+                        description={event.description}
+                        website={event.event_site_url}
+                      />
+                    )
+                  })
+                )
+              //CLOSE JAVASCRIPT
+            }
           </div>
-          <div className="savedEvents wrapper">
-            <h2>Saved Events</h2>
+          <div className="savedEvents wrapper" id="savedEvents">
+            <h2 className="resultsTitle">Saved Events</h2>
+            <AnchorLink href='#savedEvents'><i className="fa fa-arrow-circle-down"></i></AnchorLink>
             <div className="savedEventsFlex">
               {/* {once the saved events have been added to state map through each item and return its contents to the DOM}  */}
-              {this.state.savedEvents.map((eventItem) => {
-                return (
-                  <div className="savedEventItem">
-                    <h3>{eventItem.name}</h3>
-                    <p>{eventItem.description}</p>
-                  </div>
-                )
-              })}
+              { //OPEN JAVASCRIPT
+                this.state.savedEvents.map((eventItem) => {
+                  return (
+                    <div className="savedEventItem">
+                      <h3>{eventItem.name}</h3>
+                      <p>{eventItem.description}</p>
+                    </div>
+                  )
+                })
+                //CLOSE JAVASCRIPT
+              }
             </div>
           </div>
         </main>

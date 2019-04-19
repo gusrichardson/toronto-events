@@ -1,12 +1,12 @@
 .resultsTitle {
-    margin: 30px;
+    margin-top: 20px;
+    margin-bottom: 8px;
 }
 
 .responseFlex {
     display: flex;
     flex-wrap: wrap;
     flex-direction: row;
-    /* border: 5px solid blue; */
     justify-content: space-around;
 }
 
@@ -35,4 +35,6 @@
 .descriptionContainer {
     height: 150px;
     overflow: hidden;
+    border: 1px solid black;
+    padding: 10px;
 }
