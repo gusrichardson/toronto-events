@@ -14,7 +14,7 @@
 importScripts("https://storage.googleapis.com/workbox-cdn/releases/3.6.3/workbox-sw.js");
 
 importScripts(
-  "/yelp-events-react-firebase/precache-manifest.3462a847ad5ef643826d96f684284b23.js"
+  "/toronto-events/precache-manifest.ef8ad5e20bcc4455ae181756eca724a9.js"
 );
 
 workbox.clientsClaim();
@@ -28,7 +28,7 @@ self.__precacheManifest = [].concat(self.__precacheManifest || []);
 workbox.precaching.suppressWarnings();
 workbox.precaching.precacheAndRoute(self.__precacheManifest, {});
 
-workbox.routing.registerNavigationRoute("/yelp-events-react-firebase/index.html", {
+workbox.routing.registerNavigationRoute("/toronto-events/index.html", {
   
   blacklist: [/^\/_/,/\/[^\/]+\.[^\/]+$/],
 });
