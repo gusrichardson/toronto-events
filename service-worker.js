@@ -14,7 +14,7 @@
 importScripts("https://storage.googleapis.com/workbox-cdn/releases/3.6.3/workbox-sw.js");
 
 importScripts(
-  "/yelp-events-react-firebase/precache-manifest.3a65f19306bbfc4fa9ce2cd82f102bcd.js"
+  "/yelp-events-react-firebase/precache-manifest.3462a847ad5ef643826d96f684284b23.js"
 );
 
 workbox.clientsClaim();
