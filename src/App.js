@@ -35,7 +35,6 @@ class App extends Component {
     this.setState({
       category: event.target.value
     })
-    console.log(this.state);
   }
 
   handlePriceChoice = (event) => {
@@ -62,7 +61,6 @@ class App extends Component {
     event.preventDefault();
     this.loadingResults();
     this.getEventsFromAPI();
-    console.log(this.state)
   }
 
   //get a UNIX time stamp so that start date can be updated to today's date
@@ -85,7 +83,6 @@ class App extends Component {
 
 
   getEventsFromAPI = () => {
-    console.log('getting events from API')
     axios({
       url: proxy + url,
       method: `GET`,

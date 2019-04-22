@@ -17,7 +17,6 @@ class ResponseContainer extends Component {
             name: this.props.name,
             description: this.props.description
         }
-        console.log(this.props.name, "this is this name", this.state, "this is the state")
         this.setState({
             selectedEvent: selectedEvent
         })
